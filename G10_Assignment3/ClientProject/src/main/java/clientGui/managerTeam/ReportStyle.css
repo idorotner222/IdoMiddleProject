@@ -1,0 +1,159 @@
+/* ReportStyle.css - Fine Dining Luxury Theme */
+
+.root {
+    -fx-background-color: #1A1A1A;
+    -fx-font-family: "Montserrat", sans-serif;
+}
+
+/* FIX: Ensure ScrollPane and Viewport are transparent to see the background image */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+.main-background {
+    -fx-background-image: url('restaurant_background.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+/* Glassmorphism Card Pane */
+.chart-pane {
+    -fx-background-color: rgba(35, 35, 35, 0.6);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(197, 160, 89, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 20, 0, 0, 5);
+    -fx-padding: 25;
+}
+
+.title-label {
+    -fx-text-fill: #C5A059;
+    /* Muted Champagne Gold */
+    -fx-font-size: 32px;
+    -fx-font-family: "Playfair Display", serif;
+}
+
+.subtitle-label {
+    -fx-text-fill: #bdc3c7;
+    -fx-font-size: 16px;
+}
+
+/* Menu/Action Buttons */
+/* Menu/Action Buttons - Premium Filter Style */
+.menu-button,
+.action-icon-button,
+.filter-button {
+    -fx-background-color: linear-gradient(to bottom, #1A1A1A, #2D2D2D);
+    -fx-text-fill: white;
+    -fx-border-color: #D4AF37;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-letter-spacing: 1px;
+    /* -fx-text-transform: uppercase; (Not supported in JavaFX CSS directly, handle in FXML or Code) */
+}
+
+.menu-button:hover,
+.action-icon-button:hover,
+.filter-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(212, 175, 55, 0.5), 10, 0, 0, 0);
+    /* Outer Glow */
+    -fx-background-color: linear-gradient(to bottom, #2D2D2D, #3D3D3D);
+    -fx-text-fill: #F4C430;
+}
+
+.menu-button:pressed,
+.action-icon-button:pressed,
+.filter-button:pressed {
+    -fx-background-color: #151515;
+    -fx-effect: none;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Charts Styling */
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+}
+
+.chart-content {
+    -fx-background-color: transparent;
+}
+
+.chart-title {
+    -fx-text-fill: #C5A059;
+    -fx-font-size: 1.6em;
+    -fx-font-family: "Playfair Display", serif;
+}
+
+.axis-label {
+    -fx-text-fill: #ecf0f1;
+    -fx-font-family: "Montserrat", sans-serif;
+}
+
+.axis {
+    -fx-tick-label-fill: #bdc3c7;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #ecf0f1;
+}
+
+/* Borderless Chart */
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.05);
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(255, 255, 255, 0.05);
+}
+
+/* Area Chart Colors & Gradients - Request: Blue, Green, Red */
+/* Series 0: Arrivals (Blue) */
+.default-color0.chart-series-area-line {
+    -fx-stroke: #3498db;
+    -fx-stroke-width: 2px;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(52, 152, 219, 0.5), rgba(52, 152, 219, 0.05));
+}
+
+/* Series 1: Departures (Green) */
+.default-color1.chart-series-area-line {
+    -fx-stroke: #2ecc71;
+    -fx-stroke-width: 2px;
+}
+
+.default-color1.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(46, 204, 113, 0.5), rgba(46, 204, 113, 0.05));
+}
+
+/* Series 2: Late/No-Show (Red) */
+.default-color2.chart-series-area-line {
+    -fx-stroke: #e74c3c;
+    -fx-stroke-width: 2px;
+}
+
+.default-color2.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(231, 76, 60, 0.5), rgba(231, 76, 60, 0.05));
+}

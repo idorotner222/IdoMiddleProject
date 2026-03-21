@@ -1,0 +1,215 @@
+package clientGui.managerTeam;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+
+import client.MessageListener;
+import clientGui.ClientUi;
+import clientGui.navigation.MainNavigator;
+import entities.ActionType;
+import entities.Employee;
+import entities.Request;
+import entities.ResourceType;
+import entities.Response;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+
+/**
+ * Controller for the General Reports display.
+ * Shows charts for activity times, daily order trends, and other statistical
+ * data.
+ */
+public class ReportsController extends MainNavigator implements MessageListener<Object> {
+
+    @FXML
+    private AreaChart<String, Number> barChartTimes;
+    @FXML
+    private AreaChart<String, Number> lineChartOrders;
+    @FXML
+    private ComboBox<String> comboMonth;
+    @FXML
+    private ComboBox<String> comboYear;
+    private Employee.Role role;
+    private ClientUi clientUi;
+    private Employee emp;
+
+    /**
+     * Initializes the controller.
+     * Sets up the charts (disabling animations for performance) and populates the
+     * date combo boxes.
+     */
+    @FXML
+    public void initialize() {
+        // Disable animations for performance/stability
+        if (barChartTimes != null)
+            barChartTimes.setAnimated(false);
+        if (lineChartOrders != null)
+            lineChartOrders.setAnimated(false);
+
+        if (comboMonth != null) {
+            comboMonth.setItems(FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
+                    "10", "11", "12"));
+        }
+
+        if (comboYear != null) {
+            ArrayList<String> years = new ArrayList<>();
+            int currentYear = LocalDate.now().getYear();
+            for (int i = 0; i < 5; i++) {
+                years.add(String.valueOf(currentYear - i));
+            }
+            comboYear.setItems(FXCollections.observableArrayList(years));
+        }
+    }
+
+    /**
+     * Initializes the controller with the current session data.
+     * 
+     * @param emp  The logged-in employee
+     * @param c    The client UI instance
+     * @param role The role of the current user
+     */
+    public void initData(Employee emp, ClientUi c, Employee.Role role) {
+        this.clientUi = c;
+        this.role = role;
+        this.emp = emp;
+
+        // precise default value setting
+        LocalDate now = LocalDate.now();
+        if (comboMonth != null)
+            comboMonth.setValue(String.format("%02d", now.getMonthValue()));
+        if (comboYear != null)
+            comboYear.setValue(String.valueOf(now.getYear()));
+
+        this.clientUi.addListener(this);
+        sendRequest();
+    }
+
+    /**
+     * Refreshes the reports based on the selected month/year.
+     */
+    @FXML
+    void refreshReportsBtn(ActionEvent e) {
+        sendRequest();
+    }
+
+    /**
+     * Sends a request to the server to fetch report data for the selected period.
+     */
+    private void sendRequest() {
+        if (comboMonth == null || comboYear == null)
+            return;
+        String filter = comboMonth.getValue() + "/" + comboYear.getValue();
+        clientUi.sendRequest(new Request(ResourceType.REPORT, ActionType.GET_MONTHLY_REPORT, null, filter));
+    }
+
+    /**
+     * Handles the asynchronous response from the server containing report data.
+     * Updates the charts with the new data.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onMessageReceive(Object msg) {
+        if (msg instanceof Response) {
+            Response res = (Response) msg;
+            if (res.getAction() == ActionType.GET_MONTHLY_REPORT
+                    && res.getStatus() == Response.ResponseStatus.SUCCESS) {
+                // We trust the server to send the Map<String, Object> structure
+                Map<String, Object> data = (Map<String, Object>) res.getData();
+
+                Platform.runLater(() -> {
+                    try {
+                        updateTimeChart((Map<Integer, Integer>) data.get("arrivals"),
+                                (Map<Integer, Integer>) data.get("departures"),
+                                (Map<Integer, Integer>) data.get("cancellations"));
+                        updateTrendsChart((Map<String, Integer>) data.get("dailyOrders"));
+                    } catch (Exception e) {
+                        e.printStackTrace(); // Log casting errors if they occur
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * Updates the "Time of Day" chart.
+     */
+    private void updateTimeChart(Map<Integer, Integer> arr, Map<Integer, Integer> dep, Map<Integer, Integer> canc) {
+        if (barChartTimes == null)
+            return;
+
+        barChartTimes.getData().clear();
+
+        // Visual Feedback: If all maps are empty or null
+        boolean noData = (arr == null || arr.isEmpty()) &&
+                (dep == null || dep.isEmpty()) &&
+                (canc == null || canc.isEmpty());
+
+        if (noData) {
+            barChartTimes.setTitle("No details available for this period");
+            return;
+        } else {
+            barChartTimes.setTitle("Activity Times"); // Restore title
+        }
+
+        XYChart.Series<String, Number> s1 = new XYChart.Series<>();
+        s1.setName("Arrivals");
+
+        XYChart.Series<String, Number> s2 = new XYChart.Series<>();
+        s2.setName("Departures");
+
+        XYChart.Series<String, Number> s3 = new XYChart.Series<>();
+        s3.setName("Late/No-Show");
+
+        for (int i = 0; i < 24; i++) {
+            // ... (rest of loop)
+            String h = String.format("%02d:00", i);
+            int val1 = arr != null ? arr.getOrDefault(i, 0) : 0;
+            int val2 = dep != null ? dep.getOrDefault(i, 0) : 0;
+            int val3 = canc != null ? canc.getOrDefault(i, 0) : 0;
+
+            s1.getData().add(new XYChart.Data<>(h, val1));
+            s2.getData().add(new XYChart.Data<>(h, val2));
+            s3.getData().add(new XYChart.Data<>(h, val3));
+        }
+        barChartTimes.getData().addAll(s1, s2, s3);
+    }
+
+    /**
+     * Updates the "Orders Trend" chart.
+     */
+    private void updateTrendsChart(Map<String, Integer> daily) {
+        if (lineChartOrders == null)
+            return;
+
+        lineChartOrders.getData().clear();
+        XYChart.Series<String, Number> s = new XYChart.Series<>();
+        s.setName("Total Orders");
+
+        if (daily != null) {
+            // Using TreeMap to sort by date string (simple sort, assumes DD/MM format holds
+            // somewhat or is sorted by server)
+            // Ideally server sorts it. ReportDAO already sorts by date.
+            new TreeMap<>(daily).forEach((k, v) -> s.getData().add(new XYChart.Data<>(k, v)));
+        }
+
+        lineChartOrders.getData().add(s);
+    }
+
+    /**
+     * Navigates back to the Employee Options screen.
+     */
+    @FXML
+    void goBackBtn(ActionEvent e) {
+        // Assuming ManagerOptionsController exists and handles initData
+        ManagerOptionsController c = super.loadScreen("managerTeam/EmployeeOption", e, clientUi);
+        if (c != null)
+            c.initData(this.emp, clientUi, role);
+    }
+}

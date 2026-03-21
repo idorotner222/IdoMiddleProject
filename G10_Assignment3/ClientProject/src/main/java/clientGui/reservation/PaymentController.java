@@ -1,0 +1,214 @@
+package clientGui.reservation;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import client.MessageListener;
+import clientGui.navigation.MainNavigator;
+import clientGui.user.SubscriberOptionController;
+import clientLogic.OrderLogic;
+import entities.Alarm;
+import entities.Customer;
+import entities.CustomerType;
+import entities.Order;
+import entities.Order.OrderStatus;
+import entities.Response;
+import entities.Response.ResponseStatus;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+
+/**
+ * Controller for the Payment Screen.
+ * Handles credit card payment processing and updates order status.
+ */
+public class PaymentController extends MainNavigator implements MessageListener<Object>, Initializable {
+
+	@FXML
+	private TextField txtCardNumber;
+	@FXML
+	private TextField txtID;
+	@FXML
+	private TextField txtExpiry;
+	@FXML
+	private TextField txtCVV;
+	@FXML
+	private Label lblError;
+
+	private double amountToPay;
+	private int tableId;
+	private int subscriberId;
+	private CustomerType isSubscriber;
+	private Order order;
+	private double totalPrice;
+	private OrderLogic orderLogic;
+	private Customer customer;
+	private ActionEvent currentEvent;
+
+	/**
+	 * Initializes the controller.
+	 * Sets up a close request handler to disconnect the client when the window is
+	 * closed.
+	 */
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		Platform.runLater(() -> {
+			if (txtCVV.getScene() != null && txtCVV.getScene().getWindow() != null) {
+				Stage stage = (Stage) txtCVV.getScene().getWindow();
+				stage.setOnCloseRequest(event -> {
+					clientUi.disconnectClient();
+
+				});
+			}
+		});
+	}
+
+	public void setPaymentDetails(double amount, int tableId) {
+		this.amountToPay = amount;
+		this.tableId = tableId;
+	}
+
+	/**
+	 * Initializes the controller with order and payment details.
+	 * 
+	 * @param order         The order object
+	 * @param originalTotal The total amount to pay
+	 * @param subId         The subscriber ID
+	 * @param isSubscriber  The customer type
+	 * @param tableId       The table ID
+	 * @param customer      The customer object
+	 */
+	public void initData(Order order, double originalTotal, int subId, CustomerType isSubscriber, int tableId,
+			Customer customer) {
+		this.tableId = tableId;
+		this.subscriberId = subId;
+		this.isSubscriber = isSubscriber;
+		this.order = order;
+		this.totalPrice = originalTotal;
+		this.orderLogic = new OrderLogic(clientUi);
+		this.customer = customer;
+	}
+
+	/**
+	 * Handles payments processing.
+	 * Validates payment inputs and sends payment request to server.
+	 * 
+	 * @param event The action event
+	 */
+	@FXML
+	void processPayment(ActionEvent event) {
+		lblError.setVisible(false);
+
+		String cardNum = txtCardNumber.getText().trim();
+		String id = txtID.getText().trim();
+		String expiry = txtExpiry.getText().trim();
+		String cvv = txtCVV.getText().trim();
+
+		if (cardNum.isEmpty() || id.isEmpty() || expiry.isEmpty() || cvv.isEmpty()) {
+			showError("Please fill in all fields.");
+			return;
+		}
+
+		if (cardNum.length() < 12) {
+			showError("Invalid Card Number.");
+			return;
+		}
+
+		if (cvv.length() != 3) {
+			showError("CVV must be 3 digits.");
+			return;
+		}
+		System.out.println("Processing Credit Card Payment...");
+		System.out.println("Card: " + cardNum + " | Amount: " + totalPrice);
+
+		orderLogic.updateOrderCheckOut(order);
+		this.currentEvent = event;
+
+	}
+
+	/**
+	 * Cancels the payment and returns to the Bill screen.
+	 * 
+	 * @param event The action event
+	 */
+	@FXML
+	void cancel(ActionEvent event) {
+		BillController billController = super.loadScreen("reservation/Bill", event, clientUi);
+		if (billController != null) {
+			billController.initData(order, subscriberId, isSubscriber, tableId, customer);
+		}
+
+	}
+
+	private void showError(String msg) {
+		lblError.setText(msg);
+		lblError.setVisible(true);
+	}
+
+	private void closeWindow(ActionEvent event) {
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.close();
+	}
+
+	/**
+	 * Handles server responses.
+	 * Processes the result of the payment/checkout operation.
+	 */
+	@Override
+	public void onMessageReceive(Object msg) {
+		if (!(msg instanceof Response))
+			return;
+		Response res = (Response) msg;
+
+		Platform.runLater(() -> {
+			try {
+				switch (res.getResource()) {
+					case ORDER:
+						handleOrderResponse(res);
+						break;
+					default:
+						break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	private void handleOrderResponse(Response res) {
+		if (res.getStatus() == ResponseStatus.SUCCESS) {
+
+			if (res.getData() instanceof Order) {
+				Order o = (Order) res.getData();
+				o.setTableNumber(null);
+				this.order = o;
+			}
+
+			System.out.println("Payment Approved! Table " + tableId + " released.");
+
+			try {
+				SubscriberOptionController controller = super.loadScreen("user/SubscriberOption", currentEvent,
+						clientUi);
+				if (controller != null) {
+					Alarm.showAlert("Payment Successfully!", "You paid " + totalPrice + " to Bistro, Thank you!",
+							AlertType.INFORMATION);
+					controller.initData(clientUi, isSubscriber, subscriberId, customer);
+				} else
+					System.out.println("Error navigating after payment");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error navigating after payment");
+			}
+
+		} else {
+			Alarm.showAlert("Error", res.getMessage_from_server(), AlertType.ERROR);
+		}
+	}
+
+}

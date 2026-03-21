@@ -1,0 +1,310 @@
+/* Luxury Bistro Digital Suite - Premium Theme */
+
+.root {
+    -fx-background-color: #1A1A1B;
+    /* Deep Matte Black */
+    -fx-font-family: "Montserrat", "Segoe UI", sans-serif;
+    -fx-text-fill: #E1E1E1;
+    -fx-font-size: 16px;
+    /* Increased base size */
+}
+
+.main-background {
+    -fx-background-image: url('../managerTeam/restaurant_background.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+/* Glassmorphism Container */
+.glass-pane {
+    -fx-background-color: rgba(37, 37, 38, 0.85);
+    /* Dark Slate #252526 base with opacity */
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: rgba(212, 175, 55, 0.3);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 20, 0, 0, 10);
+    -fx-padding: 30;
+}
+
+/* Headers - Elegant Serif */
+.header-label {
+    -fx-text-fill: linear-gradient(to bottom, #D4AF37, #C5A059);
+    /* Metallic Gold Gradient */
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 36px;
+    /* User Requested 36px */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+    /* Letter spacing emulated if font supports it or via Java */
+}
+
+/* Back Button - Minimalist */
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #bdc3c7;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-border-color: #7f8c8d;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15;
+    -fx-border-width: 1;
+}
+
+.back-button:hover {
+    -fx-border-color: #D4AF37;
+    -fx-text-fill: #D4AF37;
+    -fx-effect: dropshadow(three-pass-box, rgba(212, 175, 55, 0.4), 10, 0, 0, 0);
+}
+
+/* Inputs (DatePicker, ComboBox, TextField) */
+.date-picker .text-field,
+.combo-box,
+.text-field,
+.input-field {
+    -fx-background-color: #383838;
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #AAAAAA;
+    /* Lighter prompt */
+    -fx-border-color: #666;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 16px;
+    -fx-padding: 12px;
+    -fx-pref-height: 50px;
+    -fx-highlight-fill: rgba(212, 175, 55, 0.4);
+    /* Subtle Gold Selection */
+    -fx-highlight-text-fill: #FFFFFF;
+}
+
+.date-picker .text-field:focused,
+.combo-box:focused,
+.text-field:focused,
+.input-field:focused {
+    -fx-border-color: #F4C430;
+    /* Brighter Gold Glow */
+    -fx-effect: dropshadow(three-pass-box, rgba(244, 196, 48, 0.6), 10, 0, 0, 0);
+}
+
+.date-picker .arrow-button,
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow,
+.combo-box .arrow {
+    -fx-background-color: #D4AF37;
+}
+
+/* Table View - Borderless & Clean */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-placeholder-label-fill: #7f8c8d;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #252526 !important;
+    -fx-background-insets: 0 !important;
+    -fx-padding: 0 !important;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: linear-gradient(to right, transparent, #D4AF37, transparent);
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #D4AF37;
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    /* Increased from 14px */
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-cell-size: 50px;
+    /* Increased from 40px */
+}
+
+/* ... existing styles ... */
+
+.table-view .table-cell {
+    -fx-text-fill: #E1E1E1;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0;
+    -fx-font-size: 18px;
+    /* Increased from 14px */
+}
+
+/* Selected Row Styling - Crucial for User Feedback */
+.table-row-cell:selected {
+    -fx-background-color: rgba(212, 175, 55, 0.4) !important;
+    /* Gold selection */
+    -fx-background-insets: 0 !important;
+    -fx-background-radius: 0 !important;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #FFFFFF !important;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-row-cell:selected:hover {
+    -fx-background-color: rgba(212, 175, 55, 0.5) !important;
+}
+
+/* Fix for White Lines/Backgrounds - Comprehensive Override */
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background,
+.table-view .corner {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0 !important;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: #252526 !important;
+    -fx-background-insets: 0 !important;
+}
+
+/* Custom ScrollBar - Minimalist & Integrated */
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: transparent !important;
+    -fx-block-increment: 10;
+}
+
+.increment-button,
+.decrement-button {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-padding: 0;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-background-radius: 0em;
+    -fx-box-border: transparent !important;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #555;
+    -fx-background-radius: 5em;
+    -fx-background-insets: 2 !important;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #D4AF37;
+}
+
+/* Ensure empty parts of the table are transparent */
+.table-view .virtual-flow .clipped-container {
+    -fx-background-color: transparent !important;
+}
+
+/* Action Buttons - Premium Metallic */
+.action-button {
+    -fx-background-color: linear-gradient(to bottom, #D4AF37, #C5A059);
+    -fx-text-fill: #1A1A1B;
+    /* Dark text on gold */
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #F4C430;
+    /* Lighter gold border */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 4);
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 15px;
+    /* -fx-text-transform: uppercase; Not supported standard, done manually or via custom lib */
+}
+
+.action-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #F4C430, #D4AF37);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(212, 175, 55, 0.6), 15, 0, 0, 0);
+    /* Glow */
+}
+
+.action-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Secondary/Filter Buttons */
+.secondary-button {
+    -fx-background-color: #252526;
+    -fx-text-fill: #E1E1E1;
+    -fx-border-color: #555;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-border-color: #D4AF37;
+    -fx-text-fill: #D4AF37;
+}
+
+/* Delete Button - Critical Action */
+.delete-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #c0392b;
+    -fx-text-fill: #c0392b;
+}
+
+.delete-button:hover {
+    -fx-background-color: rgba(192, 57, 43, 0.1);
+    -fx-text-fill: #e74c3c;
+    -fx-border-color: #e74c3c;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.label {
+    -fx-text-fill: #E1E1E1;
+    -fx-font-size: 16px;
+    -fx-font-family: "Montserrat", sans-serif;
+}
+
+.waiting-list-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.waiting-list-button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.6), 10, 0, 0, 0);
+}
+
+.available-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.available-button:hover {
+    -fx-background-color: #27ae60;
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.6), 10, 0, 0, 0);
+}

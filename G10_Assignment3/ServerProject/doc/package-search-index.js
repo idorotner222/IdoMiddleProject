@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"client"},{"l":"clientGui"},{"l":"clientGui.managerTeam"},{"l":"clientGui.navigation"},{"l":"clientGui.reservation"},{"l":"clientGui.user"},{"l":"clientLogic"},{"l":"DAO"},{"l":"DBConnection"},{"l":"entities"},{"l":"ocsf.client"},{"l":"ocsf.server"},{"l":"server.gui"}];updateSearchResults();

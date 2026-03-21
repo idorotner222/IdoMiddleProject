@@ -1,0 +1,316 @@
+/* EmployeeOption.css - Fine Dining Luxury Theme */
+
+.root {
+    -fx-background-color: #1A1A1A;
+    /* Deep Charcoal/Ebony */
+    -fx-font-family: "Montserrat", "Segoe UI", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #E1E1E1;
+}
+
+.main-background {
+    -fx-background-image: url('restaurant_background.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+/* Semi-transparent dark overlay for readability */
+.overlay-pane {
+    -fx-background-color: rgba(26, 26, 26, 0.85);
+    /* Dark Overlay */
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+/* Typography */
+.main-title {
+    -fx-text-fill: #F4C430;
+    /* Solid Gold - Warm and Welcoming */
+    -fx-font-size: 95px;
+    /* Massive & Impressive */
+    -fx-font-family: "Playfair Display", "Times New Roman", serif;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 10, 0, 3, 3);
+    /* Clean Shadow, No Shine */
+    -fx-padding: 0 0 30 0;
+    -fx-font-weight: 900;
+    /* Extra Bold */
+    -fx-alignment: CENTER_LEFT;
+}
+
+.section-header {
+    -fx-text-fill: #C5A059;
+    -fx-font-size: 24px;
+    -fx-font-family: "Playfair Display", serif;
+    -fx-border-color: transparent transparent #C5A059 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10 0 10 0;
+}
+
+.sub-label {
+    -fx-text-fill: #E1E1E1;
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-opacity: 0.9;
+}
+
+.label {
+    -fx-text-fill: #ecf0f1;
+    /* Off-white for readability */
+    -fx-font-size: 16px;
+}
+
+/* Glassmorphism Card Pane with Elevation */
+.card-pane {
+    -fx-background-color: rgba(37, 37, 38, 0.7);
+    /* Transparent Dark Slate */
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(197, 160, 89, 0.2);
+    /* Subtle Gold border */
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 20, 0, 0, 5);
+    /* Elevation */
+    -fx-padding: 25;
+}
+
+/* Inputs: Dark themed with bottom border */
+.text-field,
+.time-field,
+.time-field-small,
+.date-picker .text-field,
+.combo-box .text-field,
+.input-field,
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: #E1E1E1;
+    -fx-prompt-text-fill: derive(#E1E1E1, -50%);
+    -fx-background-radius: 4 4 0 0;
+    -fx-border-color: transparent transparent #555 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-pref-height: 40;
+    -fx-font-size: 16px;
+    -fx-padding: 10;
+}
+
+.text-field:focused,
+.time-field:focused,
+.date-picker .text-field:focused,
+.combo-box:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: transparent transparent #F4C430 transparent;
+    /* Brighter Gold Glow */
+    -fx-effect: dropshadow(three-pass-box, rgba(244, 196, 48, 0.5), 10, 0, 0, 0);
+}
+
+/* Buttons: Elegant, outlined, hover effects */
+.button,
+.action-button,
+.menu-button,
+.dashboard-tile-button {
+    -fx-background-color: linear-gradient(to bottom, #D4AF37, #C5A059);
+    -fx-text-fill: #1A1A1B;
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-border-color: #F4C430;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 4);
+    /* -fx-text-transform: uppercase; Manual in FXML */
+}
+
+.button:hover,
+.action-button:hover,
+.menu-button:hover,
+.dashboard-tile-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #F4C430, #D4AF37);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-text-fill: #1A1A1B;
+    -fx-effect: dropshadow(three-pass-box, rgba(212, 175, 55, 0.6), 15, 0, 0, 0);
+    /* Glow */
+}
+
+/* Secondary Actions */
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #bdc3c7;
+    -fx-border-color: #7f8c8d;
+    -fx-border-width: 1;
+}
+
+.back-button:hover {
+    -fx-text-fill: #D4AF37;
+    -fx-border-color: #D4AF37;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ticker Styles */
+.ticker-pane {
+    -fx-background-color: rgba(30, 30, 30, 0.85);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(212, 175, 55, 0.3);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 2);
+    -fx-padding: 10;
+}
+
+.ticker-label {
+    -fx-font-family: "JetBrains Mono", "Consolas", monospace;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #D4AF37;
+    -fx-effect: dropshadow(gaussian, rgba(212, 175, 55, 0.4), 5, 0.5, 0, 0);
+}
+
+/* ListView - White Block Fix */
+.list-view,
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E1E1E1;
+}
+
+.list-cell:filled:selected:focused,
+.list-cell:filled:selected {
+    -fx-background-color: rgba(197, 160, 89, 0.2);
+    -fx-text-fill: white;
+}
+
+.list-cell:even {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* CheckBox Styles */
+.check-box .box {
+    -fx-background-color: #252526;
+    -fx-border-color: #555;
+    -fx-border-radius: 3;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #D4AF37;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #252526;
+    -fx-border-color: #D4AF37;
+}
+
+/* DatePicker Popup - Dark & Gold Theme (Copied for Manager Dashboard) */
+.date-picker-popup {
+    -fx-background-color: #1A1A1B;
+    -fx-border-color: #D4AF37;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 5);
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #252526;
+}
+
+.date-picker-popup .content {
+    -fx-background-color: #1A1A1B;
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .calendar-grid {
+    -fx-background-color: #1A1A1B;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #D4AF37;
+    -fx-font-weight: bold;
+    -fx-font-family: "Playfair Display", serif;
+    -fx-font-size: 14px;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #D4AF37;
+}
+
+.date-picker-popup .spinner .button:hover .left-arrow,
+.date-picker-popup .spinner .button:hover .right-arrow {
+    -fx-background-color: #F4C430;
+}
+
+.date-picker-popup .day-name-cell,
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #bdc3c7;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .day-cell {
+    -fx-text-fill: #E1E1E1;
+    -fx-background-color: transparent;
+}
+
+/* Hide days from other months completely */
+.date-picker-popup .day-cell.previous-month,
+.date-picker-popup .day-cell.next-month {
+    -fx-text-fill: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: rgba(212, 175, 55, 0.2);
+    -fx-text-fill: #F4C430;
+    -fx-cursor: hand;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #D4AF37;
+    -fx-text-fill: #1A1A1B;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .today {
+    -fx-border-color: #D4AF37;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+}
+
+/* DatePicker Input Field Styling */
+.date-picker {
+    -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    /* Dark background matching other inputs */
+    -fx-text-fill: #E1E1E1;
+    -fx-prompt-text-fill: derive(#E1E1E1, -50%);
+    -fx-border-color: transparent transparent #555 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-effect: null;
+    /* Remove default glow/shadow if any */
+}
+
+.date-picker .text-field:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: transparent transparent #F4C430 transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #D4AF37;
+    /* Gold arrow */
+}
+
+.date-picker .arrow-button:hover .arrow {
+    -fx-background-color: #F4C430;
+    /* Brighter gold on hover */
+}

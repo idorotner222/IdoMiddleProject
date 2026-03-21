@@ -1,0 +1,14 @@
+client
+clientGui
+clientGui.managerTeam
+clientGui.navigation
+clientGui.reservation
+clientGui.user
+clientLogic
+DAO
+DBConnection
+entities
+ocsf.client
+ocsf.server
+server.controller
+server.gui

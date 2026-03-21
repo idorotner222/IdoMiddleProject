@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" 
+            prefHeight="700.0" prefWidth="900.0" 
+            styleClass="main-background"
+            stylesheets="@ReportStyle.css" 
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="clientGui.managerTeam.ReportsController">
+
+   <content>
+      <VBox alignment="TOP_CENTER" spacing="30.0">
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+         
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#goBackBtn" 
+                          prefHeight="40.0" prefWidth="100.0" 
+                          styleClass="menu-button" text="← Back" />
+
+                  <VBox alignment="CENTER_LEFT" spacing="5.0">
+                      <Label text="MONTHLY PERFORMANCE REPORTS" styleClass="title-label" />
+                      <Label text="View statistics regarding orders and waiting lists" styleClass="subtitle-label" />
+                  </VBox>
+               </children>
+            </HBox>
+            
+            <!-- Date Filter Section -->
+            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 15; -fx-background-color: rgba(30, 30, 30, 0.4); -fx-background-radius: 10; -fx-border-color: rgba(212, 175, 55, 0.1); -fx-border-radius: 10;">
+               <children>
+                  <Label text="Filter Period:" style="-fx-text-fill: #D4AF37; -fx-font-weight: bold; -fx-font-size: 14px;" />
+                  <ComboBox fx:id="comboMonth" prefWidth="130.0" promptText="Select Month" styleClass="menu-button"/>
+                  <ComboBox fx:id="comboYear" prefWidth="100.0" promptText="Year" styleClass="menu-button"/>
+                  <Button onAction="#refreshReportsBtn" text="Apply Filter" styleClass="action-icon-button" />
+               </children>
+            </HBox>
+            
+            <VBox spacing="10.0" styleClass="chart-pane" VBox.vgrow="ALWAYS" fillWidth="true">
+               <Label text="Activity Times: Arrivals, Departures &amp; Delays" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" />
+               
+               <AreaChart fx:id="barChartTimes" prefHeight="350.0" legendSide="BOTTOM" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                 <xAxis>
+                   <CategoryAxis label="Hour of Day" side="BOTTOM" fx:id="xAxisTimes"/>
+                 </xAxis>
+                 <yAxis>
+                   <NumberAxis label="Number of Customers" side="LEFT" />
+                 </yAxis>
+               </AreaChart>
+            </VBox>
+
+            <VBox spacing="10.0" styleClass="chart-pane" VBox.vgrow="ALWAYS" fillWidth="true">
+               <Label text="Orders vs. Waiting List Trends" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" />
+               
+               <AreaChart fx:id="lineChartOrders" prefHeight="350.0" createSymbols="true" legendSide="BOTTOM" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                 <xAxis>
+                   <CategoryAxis label="Day of Month" side="BOTTOM" fx:id="xAxisDays"/>
+                 </xAxis>
+                 <yAxis>
+                   <NumberAxis label="Count" side="LEFT" />
+                 </yAxis>
+               </AreaChart>
+            </VBox>
+            
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

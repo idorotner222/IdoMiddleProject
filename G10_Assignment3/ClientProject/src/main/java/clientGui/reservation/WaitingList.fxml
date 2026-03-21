@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1000.0"
+	styleClass="main-background"
+	stylesheets="@../reservation/WaitingList.css"
+	xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="clientGui.reservation.WaitingListController">
+
+	<children>
+		<VBox spacing="15.0" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="0.0" alignment="CENTER">
+			<padding>
+				<Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+			</padding>
+
+			<children>
+
+				<VBox spacing="15.0" styleClass="glass-pane"
+					VBox.vgrow="ALWAYS">
+					<BorderPane>
+						<left>
+							<Button graphicTextGap="10.0" mnemonicParsing="false"
+								onAction="#handleBackBtn" styleClass="back-button" text="← Back"
+								BorderPane.alignment="CENTER" />
+						</left>
+						<center>
+							<Label styleClass="header-label"
+								text="Waiting List Management" BorderPane.alignment="CENTER">
+							</Label>
+						</center>
+						<right>
+							<HBox prefWidth="80.0" />
+						</right>
+					</BorderPane>
+
+					<HBox alignment="CENTER_LEFT" spacing="15.0"
+						styleClass="filter-container">
+						<padding>
+							<Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+						</padding>
+						<children>
+							<Label
+								style="-fx-font-weight: bold; -fx-text-fill: #bdc3c7;"
+								text="Filter by Reservation Date:" />
+
+							<DatePicker fx:id="filterDate"
+								onAction="#handleDateSelect" promptText="Select Date"
+								styleClass="date-picker-style" />
+
+							<Button mnemonicParsing="false"
+								onAction="#handleClearFilter" styleClass="secondary-button"
+								text="Show All Dates" />
+						</children>
+					</HBox>
+
+					<TableView fx:id="waitingListTable" VBox.vgrow="ALWAYS"
+						styleClass="dark-table">
+						<columns>
+							<TableColumn fx:id="colWaitingId" text="ID"
+								prefWidth="50.0" minWidth="50.0" />
+
+							<TableColumn fx:id="colReservationDate"
+								text="Reservation Date" prefWidth="160.0" minWidth="160.0" />
+
+							<TableColumn fx:id="colEnterTime" text="Log Time"
+								prefWidth="160.0" minWidth="160.0" />
+
+							<TableColumn fx:id="colConfirmationCode" text="Code"
+								prefWidth="80.0" minWidth="80.0" />
+
+							<TableColumn fx:id="colGuests" text="Guests"
+								prefWidth="80.0" minWidth="80.0" style="-fx-alignment: CENTER;" />
+
+							<TableColumn fx:id="colCustomerName" text="Name"
+								prefWidth="130.0" minWidth="130.0" />
+
+							<TableColumn fx:id="colCustomerPhone" text="Phone"
+								prefWidth="120.0" minWidth="120.0" />
+
+							<TableColumn fx:id="colCustomerEmail" text="Email"
+								prefWidth="200.0" minWidth="200.0" />
+
+							<TableColumn fx:id="colCustomerId" text="C. ID"
+								prefWidth="60.0" minWidth="60.0" />
+
+							<TableColumn fx:id="colStatus" text="Status"
+								prefWidth="120.0" minWidth="120.0" />
+						</columns>
+
+						<columnResizePolicy>
+							<TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
+						</columnResizePolicy>
+
+						<placeholder>
+							<Label text="No customers found"
+								style="-fx-text-fill: white;" />
+						</placeholder>
+					</TableView>
+				</VBox>
+
+			</children>
+		</VBox>
+	</children>
+</AnchorPane>

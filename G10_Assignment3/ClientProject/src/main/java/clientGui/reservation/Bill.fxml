@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" 
+      prefHeight="600.0" prefWidth="420.0" 
+      stylesheets="@../navigation/SelectionScreen.css" 
+      styleClass="main-container"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="clientGui.reservation.BillController">
+
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+
+   <children>
+      <Label text="ORDER BILL" styleClass="title-label" />
+      
+      <VBox spacing="10.0" VBox.vgrow="ALWAYS" styleClass="content-card">
+         
+         <Label text="Order Summary" styleClass="section-header" style="-fx-font-size: 16px; -fx-border-width: 0 0 1 0; -fx-border-color: #D4AF37;" />
+         
+         <ListView fx:id="itemsList" VBox.vgrow="ALWAYS" 
+                   style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 5;" />
+         
+         <Separator style="-fx-opacity: 0.3;" />
+         
+         <VBox spacing="8.0">
+            <HBox alignment="CENTER_LEFT">
+               <Label text="Subtotal" styleClass="bill-label" />
+               <HBox HBox.hgrow="ALWAYS" />
+               <Label fx:id="lblOriginalPrice" text="0.00 $" styleClass="bill-value" />
+            </HBox>
+
+            <HBox fx:id="discountBox" alignment="CENTER_LEFT" visible="false" managed="false">
+               <Label text="Subscriber Discount (10%)" styleClass="bill-discount" />
+               <HBox HBox.hgrow="ALWAYS" />
+               <Label fx:id="lblDiscountAmount" text="-0.00 $" styleClass="bill-discount" />
+            </HBox>
+
+            <Separator style="-fx-padding: 5 0 5 0; -fx-opacity: 0.3;" />
+
+            <HBox alignment="CENTER_LEFT">
+               <Label text="Total to Pay" styleClass="bill-total-label" />
+               <HBox HBox.hgrow="ALWAYS" />
+               <Label fx:id="lblFinalPrice" text="0.00 $" styleClass="bill-total-value" />
+            </HBox>
+         </VBox>
+      </VBox>
+
+      <HBox spacing="15.0" alignment="CENTER">
+         <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#goBack" 
+                 prefHeight="45.0" prefWidth="150.0" 
+                 styleClass="menu-button" 
+                 text="Cancel" />
+                 
+         <Button fx:id="btnPay" mnemonicParsing="false" onAction="#payAndReleaseTable" 
+                 prefHeight="45.0" prefWidth="200.0" 
+                 styleClass="menu-button, primary-button" 
+                 text="Proceed to Pay" />
+      </HBox>
+
+   </children>
+</VBox>
